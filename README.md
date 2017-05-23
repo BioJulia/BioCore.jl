@@ -6,6 +6,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE)
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioCore.jl/stable)
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://biojulia.github.io/BioCore.jl/latest)
+![](https://img.shields.io/badge/BioJulia%20Maintainer-Ward9250-orange.svg)
 
 **Development builds:**
 
@@ -16,5 +17,3 @@ in the BioJulia ecosystem.
 It also includes a definition of a common IO interface for IO of Bioinformatics
 formats in BioJulia packages, and includes some helper functions for generating
 file parsers from state machine automata with Automa.jl
-
-_Dedicated BioJulia Maintainer: Ben Ward (@Ward9250)_
