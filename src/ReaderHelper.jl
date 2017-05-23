@@ -1,7 +1,7 @@
 # Reader Helper
 # =============
 #
-# Utilities to generate file readers in Bio.jl.
+# Utilities to generate file readers in BioJulia packages.
 #
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE.md
@@ -74,9 +74,9 @@ function generate_readheader_function(reader_type, metainfo_type, machine, init_
             _readheader!(reader, reader.state)
         end
 
-        function _readheader!(reader::$(reader_type), state::Bio.Ragel.State)
+        function _readheader!(reader::$(reader_type), state::BioCore.Ragel.State)
             stream = state.stream
-            Bio.ReaderHelper.ensure_margin!(stream)
+            BioCore.ReaderHelper.ensure_margin!(stream)
             cs = state.cs
             linenum = state.linenum
             data = stream.buffer
@@ -122,9 +122,9 @@ function generate_read_function(reader_type, machine, init_code, actions)
             return _read!(reader, reader.state, record)
         end
 
-        function _read!(reader::$(reader_type), state::Bio.Ragel.State, record::eltype($(reader_type)))
+        function _read!(reader::$(reader_type), state::BioCore.Ragel.State, record::eltype($(reader_type)))
             stream = state.stream
-            Bio.ReaderHelper.ensure_margin!(stream)
+            BioCore.ReaderHelper.ensure_margin!(stream)
             cs = state.cs
             linenum = state.linenum
             data = stream.buffer
@@ -172,4 +172,4 @@ function generate_read_function(reader_type, machine, init_code, actions)
     end
 end
 
-end # module ReaderHelper
+end

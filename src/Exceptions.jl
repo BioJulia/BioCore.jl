@@ -1,15 +1,11 @@
-# Exceptions.jl
-# =============
-#
-# Exceptions common to multiple BioJulia packages.
-#
-# This file is a part of BioJulia.
-# License is MIT: https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE.md
+# Exceptions
+# ==========
 
 module Exceptions
 
 """
     MissingFieldException <: Exception
+
 An exception type thrown when a missing field of a record is accessed.
 """
 immutable MissingFieldException <: Exception

@@ -1,10 +1,5 @@
-# declare.jl
-# ==========
-#
-# Declarations of methods common to multiple BioJulia packages.
-#
-# This file is a part of BioJulia.
-# License is MIT: https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE.md
+# Method Declarations
+# ===================
 
 # Method declaration macro.
 macro declare(names)
@@ -21,7 +16,7 @@ macro declare(names)
     return esc(ex)
 end
 
-# Base functions used in (and exported from) Bio.jl.
+# Base functions used in (and exported from) BioJulia packages.
 @declare (
     distance,
     seqname,
@@ -36,5 +31,6 @@ end
     isoverlapping,
     metainfoval,
     metainfotag,
+    header,
     isfilled
 )
