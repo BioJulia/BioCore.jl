@@ -1,7 +1,7 @@
-# IO.jl
-# =====
+# BioCore.IO
+# ======
 #
-# The IO interface(s) common to multiple BioJulia packages.
+# I/O interfaces for BioJulia packages.
 #
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE.md
@@ -10,6 +10,7 @@ module IO
 
 """
 Abstract file format type.
+
 See `subtypes(FileFormat)` for all available file formats.
 """
 abstract FileFormat
@@ -21,6 +22,7 @@ abstract AbstractFormattedIO
 
 """
     stream(io::AbstractFormattedIO)
+
 Return the underlying `IO` object; subtypes of `AbstractFormattedIO` must
 implement this method.
 """
@@ -42,8 +44,10 @@ function Base.open{T<:AbstractFormattedIO}(f::Function, ::Type{T}, args...; kwar
     end
 end
 
+
 """
 Abstract data reader type.
+
 See `subtypes(AbstractReader)` for all available data readers.
 """
 abstract AbstractReader <: AbstractFormattedIO
@@ -57,6 +61,7 @@ end
 
 """
 Abstract data writer type.
+
 See `subtypes(AbstractWriter)` for all available data writers.
 """
 abstract AbstractWriter <: AbstractFormattedIO
@@ -84,4 +89,4 @@ function Base.open{F<:FileFormat}(::AbstractString, ::AbstractString, ::Type{F})
     error("open(filepath, mode, format) syntax has been removed. Please use open(reader|writer, filepath) instead.")
 end
 
-end # module BioCore.IO
+end  # module BioCore.IO

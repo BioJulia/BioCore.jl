@@ -10,7 +10,7 @@ module Ragel
 
 export tryread!
 
-import Bio.IO: FileFormat, AbstractReader, stream
+import BioCore.IO: FileFormat, AbstractReader, stream
 import BufferedStreams: BufferedStreams, BufferedInputStream
 
 # A type keeping track of a ragel-based parser's state.
@@ -230,7 +230,9 @@ end
 
 """
     tryread!(reader::AbstractReader, output)
+
 Try to read the next element into `output` from `reader`.
+
 The result is wrapped in `Nullable` and will be null if no entry is available.
 """
 function tryread!(reader::AbstractReader, output)
