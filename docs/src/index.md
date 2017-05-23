@@ -1,4 +1,4 @@
-# BioCore.jl
+# BioCore.jl <small>Core definitions for BioJulia packages</small>
 
 [![Latest Release](https://img.shields.io/github/release/BioJulia/BioCore.jl.svg)](https://github.com/BioJulia/BioCore.jl/releases/latest)
 [![BioCore](http://pkg.julialang.org/badges/BioCore_0.5.svg)](http://pkg.julialang.org/?pkg=BioCore)
