@@ -1,3 +1,4 @@
+julia 0.5
+Compat 0.17
 Automa
 BufferedStreams
-julia 0.5
