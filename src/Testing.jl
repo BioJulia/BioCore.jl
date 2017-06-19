@@ -1,3 +1,11 @@
+# Testing
+# =======
+#
+# Utilities to assist testing of BioJulia packages.
+#
+# This file is a part of BioJulia.
+# License is MIT: https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE.md
+
 module Testing
 
 function get_bio_fmt_specimens(commit="3140ef6110bb309703ffde564ce705eeb80607d4")
@@ -27,13 +35,6 @@ function random_seq(n::Integer, nts, probs)
         x[i] = nts[searchsorted(cumprobs, rand()).start]
     end
     return convert(String, x)
-end
-
-function random_seq{A<:Alphabet}(::Type{A}, n::Integer)
-    nts = alphabet(A)
-    probs = Vector{Float64}(length(nts))
-    fill!(probs, 1 / length(nts))
-    return BioSequence{A}(random_seq(n, nts, probs))
 end
 
 function random_dna(n, probs=[0.24, 0.24, 0.24, 0.24, 0.04])
