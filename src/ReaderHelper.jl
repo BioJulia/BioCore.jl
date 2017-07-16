@@ -49,7 +49,13 @@ end
     return resize_and_copy!(dst, dstart, stream.buffer, upanchor!(stream):p)
 end
 
-function generate_index_function(record_type, machine, init_code, actions)
+function generate_index_function(record_type, machine, init_code, actions; kwargs...)
+    kwargs = Dict(kwargs)
+    context = Automa.CodeGenContext(
+        generator=get(kwargs, :generator, :goto),
+        checkbounds=get(kwargs, :checkbounds, false),
+        loopunroll=get(kwargs, :loopunroll, 0)
+    )
     quote
         function index!(record::$(record_type))
             data = record.data
@@ -58,7 +64,7 @@ function generate_index_function(record_type, machine, init_code, actions)
             initialize!(record)
             $(init_code)
             cs = $(machine.start_state)
-            $(Automa.generate_exec_code(machine, actions=actions, code=:goto, check=false))
+            $(Automa.generate_exec_code(context, machine, actions))
             if cs != 0
                 throw(ArgumentError(string("failed to index ", $(record_type), " ~>", repr(String(data[p:min(p+7,p_end)])))))
             end
@@ -89,7 +95,7 @@ function generate_readheader_function(reader_type, metainfo_type, machine, init_
             $(init_code)
 
             while true
-                $(Automa.generate_exec_code(machine, actions=actions, code=:table))
+                $(Automa.generate_exec_code(Automa.CodeGenContext(generator=:table), machine, actions))
 
                 state.cs = cs
                 state.finished = cs == 0
@@ -116,7 +122,13 @@ function generate_readheader_function(reader_type, metainfo_type, machine, init_
     end
 end
 
-function generate_read_function(reader_type, machine, init_code, actions)
+function generate_read_function(reader_type, machine, init_code, actions; kwargs...)
+    kwargs = Dict(kwargs)
+    context = Automa.CodeGenContext(
+        generator=get(kwargs, :generator, :goto),
+        checkbounds=get(kwargs, :checkbounds, false),
+        loopunroll=get(kwargs, :loopunroll, 0)
+    )
     quote
         function Base.read!(reader::$(reader_type), record::eltype($(reader_type)))::eltype($(reader_type))
             return _read!(reader, reader.state, record)
@@ -141,7 +153,7 @@ function generate_read_function(reader_type, machine, init_code, actions)
             end
 
             while true
-                $(Automa.generate_exec_code(machine, actions=actions, code=:goto, check=false))
+                $(Automa.generate_exec_code(context, machine, actions))
 
                 state.cs = cs
                 state.finished |= cs == 0
