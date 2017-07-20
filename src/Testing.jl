@@ -11,9 +11,10 @@ module Testing
 function get_bio_fmt_specimens(commit="222f58c8ef3e3480f26515d99d3784b8cfcca046")
     path = joinpath(dirname(dirname(@__FILE__)), "BioFmtSpecimens")
     if !isdir(path)
-        run(`git clone --depth 1 https://github.com/BioJulia/BioFmtSpecimens.git $(path)`)
+        run(`git clone https://github.com/BioJulia/BioFmtSpecimens.git $(path)`)
     end
     cd(path) do
+        run(`git fetch origin`)
         run(`git checkout $(commit)`)
     end
     return path
