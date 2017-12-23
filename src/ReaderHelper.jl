@@ -9,6 +9,205 @@
 module ReaderHelper
 
 import Automa
+import TranscodingStreams
+
+"""
+    @mark
+
+Mark the current position to keep the buffered data.
+"""
+macro mark()
+    esc(:(buffer.markpos = p))
+end
+
+"""
+    @unmark
+
+Unmark the buffer.
+"""
+macro unmark()
+    esc(:(buffer.markpos = 0))
+end
+
+"""
+    @pos
+
+Get the current position relative to the marked position.
+"""
+macro pos()
+    esc(:(p - buffer.markpos + 1))
+end
+
+function readrecord! end
+
+"""
+    generate_readrecord_function(rectype, machine, actions, initcode, exitcode, kwargs...)
+
+Generate a `readrecord!(stream::TranscodingStream, record::rectype, state)` function.
+
+`readrecord!` will parse data from `stream` and fill `record` as output. `state`
+can be used to keep track of the parsing state. This function is for package
+developers. See the source code for the exact behavior of `readrecord!`.
+
+`RecordIterator` and `RecordIteratorState` defined in `BioCore.ReaderHelper` are
+useful to generate parsers.
+
+To extend the `readrecord!` function, it is required to import the function from
+`BioCore.ReaderHelper`.
+
+Arguments
+---------
+- `rectype`:
+    Record type.
+- `machine`:
+    Automa's machine.
+- `actions`:
+    Actions associated with `machine`.
+- `initcode`:
+    Initial code that will be executed before the first parsing loop.
+- `exitcode`:
+    Exit code that will be executed after each parsing loop.
+- `kwargs`:
+    Keyword arguments passed to `Automa.CodeGenContext` (`generator`,
+    `checkbounds`, `loopunroll`).
+"""
+function generate_readrecord_function(rectype::DataType,
+                                      machine::Automa.Machine,
+                                      actions::Dict{Symbol,Expr},
+                                      initcode::Expr,
+                                      exitcode::Expr;
+                                      kwargs...)
+    kwargs = Dict(kwargs)
+    context = Automa.CodeGenContext(
+        generator=get(kwargs, :generator, :goto),
+        checkbounds=get(kwargs, :checkbounds, false),
+        loopunroll=get(kwargs, :loopunroll, 0),
+    )
+    quote
+        function readrecord!(
+                stream::$(TranscodingStreams.TranscodingStream),
+                record::$(rectype), state)
+            @assert !ismarked(stream)
+
+            # Initialize variables.
+            buffer = stream.state.buffer1
+            data = buffer.data
+            $(Automa.generate_init_code(context, machine))
+            $(initcode)
+
+            # Start parsing.
+            while true
+                let eof = eof(stream)  # `eof` refills the buffer
+                    p = buffer.bufferpos
+                    p_end = buffer.marginpos - 1
+                    if eof
+                        p_eof = p_end
+                    end
+                end
+                #print("before: "); @show cs, p, p_end, p_eof
+                # The data buffer must not be moved within the generated code below!
+                $(Automa.generate_exec_code(context, machine, actions))
+                #print(" after: "); @show cs, p, p_end, p_eof
+
+                # Restore consistency.
+                let
+                    markpos = buffer.markpos
+                    skip(stream, p - buffer.bufferpos)
+                    shift = markpos - buffer.markpos
+                    @assert shift ≥ 0
+                    p -= shift
+                    p_end -= shift
+                    if p_eof ≥ 0
+                        p_eof -= shift
+                    end
+                end
+
+                # Exit or repeat.
+                $(exitcode)
+            end
+        end
+    end
+end
+
+# Iterator of records.
+struct RecordIterator{T}
+    # input stream
+    stream::TranscodingStreams.TranscodingStream
+
+    # return a copy?
+    copy::Bool
+
+    # close stream at the end?
+    close::Bool
+
+    # placeholder of record
+    record::T
+
+    function RecordIterator{T}(stream::IO; copy::Bool=true, close::Bool=false) where T
+        if !(stream isa TranscodingStreams.TranscodingStream)
+            stream = TranscodingStreams.NoopStream(stream)
+        end
+        return new(stream, copy, close, T())
+    end
+end
+
+function Base.iteratorsize(::Type{<:RecordIterator})
+    return Base.SizeUnknown()
+end
+
+function Base.eltype(::Type{RecordIterator{T}}) where T
+    return T
+end
+
+function Base.show(io::IO, iter::RecordIterator)
+    print(io, summary(iter), "(<copy=$(iter.copy),close=$(iter.close)>)")
+end
+
+# State of RecordIterator.
+mutable struct RecordIteratorState
+    # the current line number
+    linenum::Int
+
+    # read a new record?
+    read::Bool
+
+    # consumed all input?
+    done::Bool
+
+    function RecordIteratorState()
+        return new(1, false, false)
+    end
+end
+
+function Base.start(iter::RecordIterator)
+    return RecordIteratorState()
+end
+
+function Base.done(iter::RecordIterator, state::RecordIteratorState)
+    if state.done
+        return true
+    elseif !state.read
+        readrecord!(iter.stream, iter.record, state)
+        if iter.close && state.done
+            close(iter.stream)
+        end
+    end
+    return !state.read
+end
+
+function Base.next(iter::RecordIterator, state::RecordIteratorState)
+    @assert state.read
+    record = iter.record
+    if iter.copy
+        record = copy(record)
+    end
+    state.read = false
+    return record, state
+end
+
+# NOTE:
+# The code below are deprecated and will be removed in the future. These
+# tools will be replaced with tools based on TranscodingStreams.jl.
 import BufferedStreams
 
 @inline function anchor!(stream::BufferedStreams.BufferedInputStream, p, immobilize=true)

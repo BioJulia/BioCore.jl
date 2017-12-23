@@ -60,6 +60,9 @@ function Base.open{T<:AbstractReader}(::Type{T}, filepath::AbstractString, args.
     return T(open(filepath), args...; kwargs...)
 end
 
+# A method to read records from a reader.
+function eachrecord end
+
 
 """
 Abstract data writer type.
