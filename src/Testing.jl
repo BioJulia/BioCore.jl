@@ -8,6 +8,8 @@
 
 module Testing
 
+const FMT_SPECIMEN_PATH = joinpath(dirname(dirname(@__FILE__)), "BioFmtSpecimens")
+
 """
     get_bio_fmt_specimens(checkout = "master", auto_checkout = true, fresh = false)
 
@@ -24,14 +26,13 @@ BioFmtSpecimens archive repository, and fetch it from the web again. This may
 be useful if updating the installed BioFmtSpecimens archive is problematic.
 """
 function get_bio_fmt_specimens(checkout = "master", auto_checkout = true, fresh = false)
-    path = joinpath(dirname(dirname(@__FILE__)), "BioFmtSpecimens")
     if fresh
-        rm(path, force = true, recursive = true)
+        rm(FMT_SPECIMEN_PATH, force = true, recursive = true)
     end
-    if !isdir(path)
-        run(`git clone https://github.com/BioJulia/BioFmtSpecimens.git $(path)`)
+    if !isdir(FMT_SPECIMEN_PATH)
+        run(`git clone https://github.com/BioJulia/BioFmtSpecimens.git $(FMT_SPECIMEN_PATH)`)
     end
-    cd(path) do
+    cd(FMT_SPECIMEN_PATH) do
         if auto_checkout
             (so, si, pr) = readandwrite(`git describe --tags`)
             checkout = readline(so)
@@ -39,7 +40,21 @@ function get_bio_fmt_specimens(checkout = "master", auto_checkout = true, fresh 
         run(`git fetch origin`)
         run(`git checkout $(checkout)`)
     end
-    return path
+    return FMT_SPECIMEN_PATH
+end
+
+function bio_fmt_specimens(format::String, fn::Function, checkout = "master", auto_checkout = true, fresh = false)
+    get_bio_fmt_specimens(checkout, auto_checkout, fresh)
+    specimens = YAML.load_file(joinpath(FMT_SPECIMEN_PATH, format, "index.yml"))
+    output = Vector{String}(length(specimens))
+    oi = 0
+    for specimen in specimens
+        if fn(specimen)
+            oi += 1
+            output[oi] = joinpath(FMT_SPECIMEN_PATH, specimen["filename"])
+        end
+    end
+    resize!(specimens, oi)
 end
 
 function random_array(n::Integer, elements, probs)
