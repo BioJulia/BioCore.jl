@@ -13,9 +13,21 @@ module Testing
 
 Install/update and return the path of BioJulia's biological data format
 specimen archive.
+
+When the BioFmtSpecimens archive is fetched from the web, the branch or tag
+specified by  `checkout` is checked out for use. Unless, `auto_checkout` is
+true, in which case, the latest tagged release of the BioFmtSpecimens archive
+will be checked out.
+
+If `fresh` is set to true, this will force a deletion of any currently installed
+BioFmtSpecimens archive repository, and fetch it from the web again. This may
+be useful if updating the installed BioFmtSpecimens archive is problematic.
 """
-function get_bio_fmt_specimens(checkout = "master", auto_checkout = true)
+function get_bio_fmt_specimens(checkout = "master", auto_checkout = true, fresh = false)
     path = joinpath(dirname(dirname(@__FILE__)), "BioFmtSpecimens")
+    if fresh
+        rm(path, force = true, recursive = true)
+    end
     if !isdir(path)
         run(`git clone https://github.com/BioJulia/BioFmtSpecimens.git $(path)`)
     end
