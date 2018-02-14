@@ -8,14 +8,24 @@
 
 module Testing
 
-function get_bio_fmt_specimens(commit="222f58c8ef3e3480f26515d99d3784b8cfcca046")
+"""
+    get_bio_fmt_specimens
+
+Install/update and return the path of BioJulia's biological data format
+specimen archive.
+"""
+function get_bio_fmt_specimens(checkout = "master", auto_checkout = true)
     path = joinpath(dirname(dirname(@__FILE__)), "BioFmtSpecimens")
     if !isdir(path)
         run(`git clone https://github.com/BioJulia/BioFmtSpecimens.git $(path)`)
     end
     cd(path) do
+        if auto_checkout
+            (so, si, pr) = readandwrite(`git describe --tags`)
+            checkout = readline(so)
+        end
         run(`git fetch origin`)
-        run(`git checkout $(commit)`)
+        run(`git checkout $(checkout)`)
     end
     return path
 end
