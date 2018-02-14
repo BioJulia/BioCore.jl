@@ -9,7 +9,7 @@
 module Testing
 
 """
-    get_bio_fmt_specimens
+    get_bio_fmt_specimens(checkout = "master", auto_checkout = true, fresh = false)
 
 Install/update and return the path of BioJulia's biological data format
 specimen archive.
