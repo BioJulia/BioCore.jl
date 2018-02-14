@@ -43,18 +43,51 @@ function get_bio_fmt_specimens(checkout = "master", auto_checkout = true, fresh 
     return FMT_SPECIMEN_PATH
 end
 
+"""
+    bio_fmt_specimens(format::String, fn::Function, checkout = "master", auto_checkout = true, fresh = false)
+
+Get the paths for file format specimen files from BioJulia's biological data
+format specimen archive.
+
+Will return a vector of paths for specimen files of a given `format` (e.g. FASTA)
+which satisfy the filter `fn`. the input for `fn` should be a single argument,
+which is a `Dict{Any, Any}`. Each `Dict{Any, Any}` represents a format file
+specimen from BioJulia's biological data format specimen archive, and has the
+following fields:
+
+* **"filename"**: Specimen filename.
+* **"valid"**: `true` or `false`, indicates whether the example conforms to the format.
+* **"origin"** The contributor or source from which a specimen was taken.
+* **"tags"** Zero or more words used to group specimens by shared features.
+* **"comments"** (Optional) Any additional information that might be of interest.
+
+When the BioFmtSpecimens archive is fetched from the web or updated, the branch or tag
+specified by  `checkout` is checked out for use. Unless, `auto_checkout` is
+true, in which case, the latest tagged release of the BioFmtSpecimens archive
+will be checked out.
+
+If `fresh` is set to true, this will force a deletion of any currently installed
+BioFmtSpecimens archive repository, and fetch it from the web again. This may
+be useful if updating the installed BioFmtSpecimens archive is problematic.
+
+```@example
+# Get paths for FASTA format specimens which are examples of a valid file.
+bio_fmt_specimens("FASTA", (x) -> x["valid"] == true)
+```
+"""
 function bio_fmt_specimens(format::String, fn::Function, checkout = "master", auto_checkout = true, fresh = false)
     get_bio_fmt_specimens(checkout, auto_checkout, fresh)
     specimens = YAML.load_file(joinpath(FMT_SPECIMEN_PATH, format, "index.yml"))
-    output = Vector{String}(length(specimens))
-    oi = 0
+    filtered_specimens = Vector{String}(length(specimens))
+    fsi = 0
     for specimen in specimens
         if fn(specimen)
-            oi += 1
-            output[oi] = joinpath(FMT_SPECIMEN_PATH, specimen["filename"])
+            fsi += 1
+            filtered_specimens[fsi] = joinpath(FMT_SPECIMEN_PATH, specimen["filename"])
         end
     end
-    resize!(specimens, oi)
+    resize!(filtered_specimens, oi)
+    return filtered_specimens
 end
 
 function random_array(n::Integer, elements, probs)
