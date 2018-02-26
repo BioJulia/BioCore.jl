@@ -8,7 +8,7 @@ module Exceptions
 
 An exception type thrown when a missing field of a record is accessed.
 """
-immutable MissingFieldException <: Exception
+struct MissingFieldException <: Exception
     field::Symbol
 end
 
