@@ -5,8 +5,7 @@ makedocs(
     sitename = "BioCore.jl",
     pages = [
         "Home" => "index.md",
-        "Using file format specimens" => "testing.md",
-        "Contributing" => "contributing.md"
+        "Using file format specimens" => "testing.md"
     ],
     authors = "The BioJulia Organisation and other contributors."
 )
