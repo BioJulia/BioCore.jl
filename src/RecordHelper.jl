@@ -8,8 +8,10 @@
 
 module RecordHelper
 
+using Compat: Cvoid
+
 function compare_memory(p1::Ptr, p2::Ptr, len::Integer)
-    return ccall(:memcmp, Cint, (Ptr{Void}, Ptr{Void}, Csize_t), p1, p2, len) % Int
+    return ccall(:memcmp, Cint, (Ptr{Cvoid}, Ptr{Cvoid}, Csize_t), p1, p2, len) % Int
 end
 
 function compare_memory(data1, offset1, data2, offset2, len)
@@ -17,7 +19,7 @@ function compare_memory(data1, offset1, data2, offset2, len)
 end
 
 # r"[0-9]+" must match `data[range]`.
-function unsafe_parse_decimal{T<:Unsigned}(::Type{T}, data::Vector{UInt8}, range::UnitRange{Int})
+function unsafe_parse_decimal(::Type{T}, data::Vector{UInt8}, range::UnitRange{Int}) where {T<:Unsigned}
     x = zero(T)
     @inbounds for i in range
         x = Base.Checked.checked_mul(x, 10 % T)
@@ -27,7 +29,7 @@ function unsafe_parse_decimal{T<:Unsigned}(::Type{T}, data::Vector{UInt8}, range
 end
 
 # r"[-+]?[0-9]+" must match `data[range]`.
-function unsafe_parse_decimal{T<:Signed}(::Type{T}, data::Vector{UInt8}, range::UnitRange{Int})
+function unsafe_parse_decimal(::Type{T}, data::Vector{UInt8}, range::UnitRange{Int}) where {T<:Signed}
     lo = first(range)
     if data[lo] == UInt8('-')
         sign = T(-1)
