@@ -11,6 +11,7 @@ module StringFields
 export StringField
 
 import BufferedStreams
+using Compat: Cvoid
 
 """
 A simplistic mutable, utf8 encoded string.
@@ -149,7 +150,7 @@ function Base.:(==)(a::StringField, b::BufferedStreams.BufferedOutputStream)
     if a === b
         return true
     elseif length(a) == length(b)
-        return ccall(:memcmp, Cint, (Ptr{Void}, Ptr{Void}, Csize_t),
+        return ccall(:memcmp, Cint, (Ptr{Cvoid}, Ptr{Cvoid}, Csize_t),
                      pointer(a.data, a.part.start), b.buffer, length(a.data)) == 0
     else
         return false
@@ -164,7 +165,7 @@ function Base.cmp(a::StringField, b::StringField)
     alen = length(a.part)
     blen = length(b.part)
     c = ccall(:memcmp, Cint,
-              (Ptr{Void}, Ptr{Void}, Csize_t),
+              (Ptr{Cvoid}, Ptr{Cvoid}, Csize_t),
               pointer(a.data, a.part.start),
               pointer(b.data, b.part.start),
               min(alen, blen))

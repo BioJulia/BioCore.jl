@@ -14,7 +14,7 @@ import BioCore.IO: FileFormat, AbstractReader, stream
 import BufferedStreams: BufferedStreams, BufferedInputStream
 
 # A type keeping track of a ragel-based parser's state.
-type State{T<:BufferedInputStream}
+mutable struct State{T<:BufferedInputStream}
     stream::T      # input stream
     cs::Int        # current DFA state of Ragel
     linenum::Int   # line number: parser is responsible for updating this

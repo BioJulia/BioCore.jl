@@ -11,7 +11,7 @@ module ReaderHelper
 import Automa
 import BufferedStreams
 
-@inline function anchor!(stream::BufferedStreams.BufferedInputStream, p, immobilize=true)
+@inline function anchor!(stream::BufferedStreams.BufferedInputStream, p, immobilize = true)
     stream.anchor = p
     stream.immobilized = immobilize
     return stream
@@ -52,9 +52,9 @@ end
 function generate_index_function(record_type, machine, init_code, actions; kwargs...)
     kwargs = Dict(kwargs)
     context = Automa.CodeGenContext(
-        generator=get(kwargs, :generator, :goto),
-        checkbounds=get(kwargs, :checkbounds, false),
-        loopunroll=get(kwargs, :loopunroll, 0)
+        generator = get(kwargs, :generator, :goto),
+        checkbounds = get(kwargs, :checkbounds, false),
+        loopunroll = get(kwargs, :loopunroll, 0)
     )
     quote
         function index!(record::$(record_type))
