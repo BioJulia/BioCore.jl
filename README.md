@@ -36,8 +36,7 @@ BioCore.jl is tested against Julia `0.6` and current `0.7-dev` on Linux, OS X, a
 
 | **PackageEvaluator**                                            | **Latest Build Status**                                                                                |
 |:---------------------------------------------------------------:|:------------------------------------------------------------------------------------------------------:|
-| [![](https://pkg.julialang.org/badges/BioCore_0.6.svg)](https://pkg.julialang.org/detail/BioCore) [![](https://pkg.julialang.org/badges/BioCore_0.7.svg)](https://pkg.julialang.org/detail/BioCore) | [![](https://img.shields.io/travis/BioJulia/BioCore.jl/master.svg?label=Linux+/+macOS)](https://travis-ci.org/BioJulia/BioCore.jl) [![Build status](https://ci.appveyor.com/api/projects/status/xl19qeob3gsgm8j7?svg=true)](https://ci.appveyor.com/project/Ward9250/biocore-jl)
- [![](https://codecov.io/gh/BioJulia/BioCore.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/BioJulia/BioCore.jl) |
+| [![](https://pkg.julialang.org/badges/BioCore_0.6.svg)](https://pkg.julialang.org/detail/BioCore) [![](https://pkg.julialang.org/badges/BioCore_0.7.svg)](https://pkg.julialang.org/detail/BioCore) | [![](https://img.shields.io/travis/BioJulia/BioCore.jl/master.svg?label=Linux+/+macOS)](https://travis-ci.org/BioJulia/BioCore.jl) [![Build status](https://ci.appveyor.com/api/projects/status/xl19qeob3gsgm8j7?svg=true)](https://ci.appveyor.com/project/Ward9250/biocore-jl) [![](https://codecov.io/gh/BioJulia/BioCore.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/BioJulia/BioCore.jl) |
 
 
 ## Contributing and Questions
