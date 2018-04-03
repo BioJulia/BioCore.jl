@@ -2,7 +2,7 @@
 
 | **Release**                                                     | **Documentation**                                                               | **Maintainers**                             |
 |:---------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:-------------------------------------------:|
-| [![Latest Release](https://img.shields.io/github/release/BioJulia/BioCore.jl.svg)](https://github.com/BioJulia/BioCore.jl/releases/latest) [![](https://img.shields.io/github/release/BioJulia/BioCore.jl.svg)](https://github.com/BioJulia/BioCore.jl/releases/latest) [![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE) | [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioCore.jl/stable) [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://biojulia.github.io/BioCore.jl/latest) | ![](https://img.shields.io/badge/BioJulia%20Maintainer-Ward9250-orange.svg) |
+| [![](https://img.shields.io/github/release/BioJulia/BioCore.jl.svg)](https://github.com/BioJulia/BioCore.jl/releases/latest) [![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE) | [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://biojulia.github.io/BioCore.jl/stable) [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://biojulia.github.io/BioCore.jl/latest) | ![](https://img.shields.io/badge/BioJulia%20Maintainer-Ward9250-orange.svg) |
 
 
 ## Description
