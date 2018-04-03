@@ -16,7 +16,7 @@ using Compat: Cvoid
 """
 A simplistic mutable, utf8 encoded string.
 """
-type StringField <: AbstractString
+mutable struct StringField <: AbstractString
     data::Vector{UInt8}
 
     # position of used data in `data` in bytes (not characters)
