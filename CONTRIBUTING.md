@@ -23,13 +23,12 @@ pull request.
 [How Can I Contribute?](#how-can-i-contribute)
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting an Enhancement](#suggest-an-enhancement)
-  - [Making Pull Requests](#pull-requests)
+  - [Making Pull Requests](#making-pull-requests)
   - [Become a BioJulia package maintainer](#become-a-biojulia-package-maintainer)
 
 [Styleguides](#styleguides)
   - [Git Commit Messages](#git-commit-messages)
   - [Additional julia style suggestions](#additional-julia-style-suggestions)
-  - [Documentation Styleguide](#documentation-styleguide)
 
 [Additional notes](#additional-notes)
   - [A suggested branching model](#a-suggested-branching-model)
@@ -195,7 +194,7 @@ Please do the following:
 Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 After you've determined [which repository](https://github.com/BioJulia)
 your bug is related to, create an issue on that repository and provide the
-following information by filling in [template](.github/ISSUE_TEMPLATE.md).
+following information by filling in [this template](.github/ISSUE_TEMPLATE.md).
 This template will help you to follow the guidance below.
 
 When you are creating a bug report, please do the following:
@@ -279,7 +278,7 @@ Enhancement proposals are tracked as
 [GitHub issues](https://guides.github.com/features/issues/).
 After you've determined which package your enhancement proposals is related to,
 create an issue on that repository and provide the following information by
-filling in [template](.github/ISSUE_TEMPLATE.md).
+filling in [this template](.github/ISSUE_TEMPLATE.md).
 This template will help you to follow the guidance below.
 
 1. **Explain the enhancement**
@@ -323,7 +322,7 @@ For information on how to do this, see this section of the julia
 [documentation](https://docs.julialang.org/en/stable/manual/packages/#Package-Development-1).
 
 Before you start working on code, it is often a good idea to open an enhancement
-[suggestion](#suggest-an-enhancement)
+[suggestion](#suggest-an-enhancement).
 
 Once you decide to start working on code, the first thing you should do is make
 yourself an account on [Github](https://github.com).
@@ -366,7 +365,7 @@ member or the [BioJulia Gitter](https://gitter.im/BioJulia/Bio.jl).
 
    - Follow the [julia style guide](https://docs.julialang.org/en/stable/manual/style-guide/).
 
-   - Follow the [additional style suggestions](#additional-julia-code-style-suggestions).
+   - Follow the [additional style suggestions](#additional-julia-style-suggestions).
 
    - Follow the [julia performance tips](https://docs.julialang.org/en/stable/manual/performance-tips/).
 
@@ -476,8 +475,8 @@ more of the following to [contribute](#how-can-i-contribute) to BioJulia in the 
 
 1. You have [submitted a new package](#submitting-a-package-to-biojulia) to BioJulia.
 2. [Reported a bug](#reporting-bugs).
-3. [Suggested enhancements](#suggesting-enhancements).
-4. [Made one or more pull requests](#pull-requests) implementing one or more...
+3. [Suggested enhancements](#suggest-an-enhancement).
+4. [Made one or more pull requests](#making-pull-requests) implementing one or more...
     - Fixed bugs.
     - Improved performance.
     - Added new functionality.
