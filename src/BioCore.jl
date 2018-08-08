@@ -6,8 +6,6 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE.md
 
-__precompile__()
-
 module BioCore
 
 include("declare.jl")
