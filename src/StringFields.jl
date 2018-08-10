@@ -11,7 +11,6 @@ module StringFields
 export StringField
 
 import BufferedStreams
-using Compat: Cvoid
 
 """
 A simplistic mutable, utf8 encoded string.
