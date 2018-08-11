@@ -34,8 +34,7 @@ function get_bio_fmt_specimens(checkout = "master", auto_checkout = true, fresh 
     end
     cd(FMT_SPECIMEN_PATH) do
         if auto_checkout
-            (so, si, pr) = readandwrite(`git describe --tags`)
-            checkout = readline(so)
+            checkout = open(readline, `git describe --tags`, "r+")
         end
         run(`git fetch origin`)
         run(`git checkout $(checkout)`)

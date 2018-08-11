@@ -8,7 +8,7 @@ function copy(dst, src, n::Integer)
 end
 
 function copy(dst::Ptr, src::Ptr, n::Integer)
-    return ccall(:memcpy, Ptr{Void}, (Ptr{Void}, Ptr{Void}, Csize_t), dst, src, n)
+    return ccall(:memcpy, Ptr{Cvoid}, (Ptr{Cvoid}, Ptr{Cvoid}, Csize_t), dst, src, n)
 end
 
 end

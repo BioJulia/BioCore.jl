@@ -8,8 +8,6 @@
 
 module RecordHelper
 
-using Compat: Cvoid
-
 function compare_memory(p1::Ptr, p2::Ptr, len::Integer)
     return ccall(:memcmp, Cint, (Ptr{Cvoid}, Ptr{Cvoid}, Csize_t), p1, p2, len) % Int
 end

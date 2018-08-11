@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Basic project setup.
 
 [Unreleased]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.0...HEAD
-[1.4.0]: https://github.com/BioJulia/BioCore.jl/compare/v1.4.0...v2.0.0
+[2.0.0]: https://github.com/BioJulia/BioCore.jl/compare/v1.4.0...v2.0.0
 [1.4.0]: https://github.com/BioJulia/BioCore.jl/compare/v1.2.1...v1.4.0
 [1.3.0]: https://github.com/BioJulia/BioCore.jl/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/BioJulia/BioCore.jl/compare/v1.2.0...v1.2.1
