@@ -15,7 +15,6 @@ include("Mem.jl")
 include("Ragel.jl")
 include("ReaderHelper.jl")
 include("RecordHelper.jl")
-include("StringFields.jl")
 include("Testing.jl")
 
 end # module BioCore
