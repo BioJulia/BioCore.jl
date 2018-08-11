@@ -6,8 +6,6 @@
 # This file is a part of BioJulia.
 # License is MIT: https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE.md
 
-__precompile__()
-
 module BioCore
 
 include("declare.jl")
@@ -17,7 +15,6 @@ include("Mem.jl")
 include("Ragel.jl")
 include("ReaderHelper.jl")
 include("RecordHelper.jl")
-include("StringFields.jl")
 include("Testing.jl")
 
 end # module BioCore

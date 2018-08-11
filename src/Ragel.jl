@@ -252,6 +252,15 @@ end
 # Iterator
 # --------
 
+function Base.iterate(reader::AbstractReader, nextone = eltype(reader)())
+    if isnull(tryread!(reader, nextone))
+        return nothing
+    else
+        return copy(get(nextone)), nextone
+    end
+end
+
+#=
 function Base.start(reader::AbstractReader)
     T = eltype(reader)
     nextone = T()
@@ -273,5 +282,6 @@ function Base.next(reader::AbstractReader, nextone)
         return ret, Nullable(item)
     end
 end
+=#
 
 end # module Ragel
