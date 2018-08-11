@@ -252,7 +252,7 @@ end
 # Iterator
 # --------
 
-function Base.iterate(reader::AbstractReader, nextone::eltype(reader) = eltype(reader)())
+function Base.iterate(reader::AbstractReader, nextone = eltype(reader)())
     if isnull(tryread!(reader, nextone))
         return nothing
     else
