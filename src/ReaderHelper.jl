@@ -41,7 +41,7 @@ end
     if length(dst) != dstart + rlen - 1
         resize!(dst, dstart + rlen - 1)
     end
-    copy!(dst, dstart, src, first(r), rlen)
+    copyto!(dst, dstart, src, first(r), rlen)
     return dst
 end
 

@@ -12,6 +12,7 @@ export tryread!
 
 import BioCore.IO: FileFormat, AbstractReader, stream
 import BufferedStreams: BufferedStreams, BufferedInputStream
+using Nullables
 
 # A type keeping track of a ragel-based parser's state.
 mutable struct State{T<:BufferedInputStream}
@@ -239,10 +240,10 @@ function tryread!(reader::AbstractReader, output)
     T = eltype(reader)
     try
         read!(reader, output)
-        return Nullable{T}(output)
+        return output
     catch ex
         if isa(ex, EOFError)
-            return Nullable{T}()
+            return nothing
         end
         rethrow()
     end
@@ -253,10 +254,10 @@ end
 # --------
 
 function Base.iterate(reader::AbstractReader, nextone = eltype(reader)())
-    if isnull(tryread!(reader, nextone))
+    if tryread!(reader, nextone) === nothing
         return nothing
     else
-        return copy(get(nextone)), nextone
+        return copy(nextone), nextone
     end
 end
 

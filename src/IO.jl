@@ -66,9 +66,10 @@ See `subtypes(AbstractWriter)` for all available data writers.
 """
 abstract type AbstractWriter <: AbstractFormattedIO end
 
-function Base.open(::Type{T}, filepath::AbstractString, args...; kwargs...) where T <: AbstractWriter
+function Base.open(::Type{T}, filepath::AbstractString, args...; kwargs_...) where T <: AbstractWriter
+    kwargs = collect(kwargs_)
     i = findfirst(kwarg -> kwarg[1] == :append, kwargs)
-    if i > 0
+    if i !== nothing
         append = kwargs[i][2]
         if !isa(append, Bool)
             throw(ArgumentError("append must be boolean"))
