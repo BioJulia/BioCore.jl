@@ -12,7 +12,7 @@ export tryread!
 
 import BioCore.IO: FileFormat, AbstractReader, stream
 import BufferedStreams: BufferedStreams, BufferedInputStream
-using Nullables
+#using Nullables
 
 # A type keeping track of a ragel-based parser's state.
 mutable struct State{T<:BufferedInputStream}
@@ -26,6 +26,7 @@ function State(initstate::Int, input::BufferedInputStream)
     return State(input, initstate, 1, false)
 end
 
+#=
 @inline function anchor!(stream, p)
     stream.anchor = 1 + p
 end
@@ -228,13 +229,13 @@ end
 function Base.read(input::AbstractReader)
     return read!(input, eltype(input)())
 end
-
+=#
 """
     tryread!(reader::AbstractReader, output)
 
 Try to read the next element into `output` from `reader`.
 
-The result is wrapped in `Nullable` and will be null if no entry is available.
+If the result could not be read, then `nothing` will be returned instead.
 """
 function tryread!(reader::AbstractReader, output)
     T = eltype(reader)
@@ -260,29 +261,5 @@ function Base.iterate(reader::AbstractReader, nextone = eltype(reader)())
         return copy(nextone), nextone
     end
 end
-
-#=
-function Base.start(reader::AbstractReader)
-    T = eltype(reader)
-    nextone = T()
-    if isnull(tryread!(reader, nextone))
-        return Nullable{T}()
-    else
-        return Nullable{T}(nextone)
-    end
-end
-
-Base.done(reader::AbstractReader, nextone) = isnull(nextone)
-
-function Base.next(reader::AbstractReader, nextone)
-    item = get(nextone)
-    ret = copy(item)
-    if isnull(tryread!(reader, item))
-        return ret, Nullable{eltype(reader)}()
-    else
-        return ret, Nullable(item)
-    end
-end
-=#
 
 end # module Ragel
