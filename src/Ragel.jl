@@ -225,41 +225,7 @@ end
 function Base.eof(input::AbstractReader)
     return eof(stream(input))
 end
-
-function Base.read(input::AbstractReader)
-    return read!(input, eltype(input)())
-end
 =#
-"""
-    tryread!(reader::AbstractReader, output)
 
-Try to read the next element into `output` from `reader`.
-
-If the result could not be read, then `nothing` will be returned instead.
-"""
-function tryread!(reader::AbstractReader, output)
-    T = eltype(reader)
-    try
-        read!(reader, output)
-        return output
-    catch ex
-        if isa(ex, EOFError)
-            return nothing
-        end
-        rethrow()
-    end
-end
-
-
-# Iterator
-# --------
-
-function Base.iterate(reader::AbstractReader, nextone = eltype(reader)())
-    if tryread!(reader, nextone) === nothing
-        return nothing
-    else
-        return copy(nextone), nextone
-    end
-end
 
 end # module Ragel
