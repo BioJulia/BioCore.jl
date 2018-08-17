@@ -45,6 +45,23 @@ function Base.open(f::Function, ::Type{T}, args...; kwargs...) where T <: Abstra
 end
 
 """
+Abstract data reader type.
+
+See `subtypes(AbstractReader)` for all available data readers.
+"""
+abstract type AbstractReader <: AbstractFormattedIO end
+
+Base.IteratorSize(::Type{T}) where T <: AbstractReader = Base.SizeUnknown()
+
+function Base.open(::Type{T}, filepath::AbstractString, args...; kwargs...) where T <: AbstractReader
+    return T(open(filepath), args...; kwargs...)
+end
+
+function Base.read(input::AbstractReader)
+    return read!(input, eltype(input)())
+end
+
+"""
     tryread!(reader::AbstractReader, output)
 
 Try to read the next element into `output` from `reader`.
@@ -52,7 +69,6 @@ Try to read the next element into `output` from `reader`.
 If the result could not be read, then `nothing` will be returned instead.
 """
 function tryread!(reader::AbstractReader, output)
-    T = eltype(reader)
     try
         read!(reader, output)
         return output
@@ -64,29 +80,12 @@ function tryread!(reader::AbstractReader, output)
     end
 end
 
-function Base.read(input::AbstractReader)
-    return read!(input, eltype(input)())
-end
-
 function Base.iterate(reader::AbstractReader, nextone = eltype(reader)())
     if tryread!(reader, nextone) === nothing
         return nothing
     else
         return copy(nextone), nextone
     end
-end
-
-"""
-Abstract data reader type.
-
-See `subtypes(AbstractReader)` for all available data readers.
-"""
-abstract type AbstractReader <: AbstractFormattedIO end
-
-Base.IteratorSize(::Type{T}) where T <: AbstractReader = Base.SizeUnknown()
-
-function Base.open(::Type{T}, filepath::AbstractString, args...; kwargs...) where T <: AbstractReader
-    return T(open(filepath), args...; kwargs...)
 end
 
 
