@@ -8,6 +8,8 @@
 
 module Testing
 
+import YAML
+
 const FMT_SPECIMEN_PATH = joinpath(dirname(dirname(@__FILE__)), "BioFmtSpecimens")
 
 """
