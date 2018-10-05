@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.4]
+### Changes
+- Fix another bug in the bio_fmt_specimens method.
+
 ## [2.0.3]
 ### Changes
 - Fix the bio_fmt_specimens method to work with julia 1.0 syntax.
@@ -64,7 +68,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Basic project setup.
 
-[Unreleased]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.3...HEAD
+[Unreleased]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.4...HEAD
+[2.0.4]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.3...v2.0.4
 [2.0.3]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.0...v2.0.1
