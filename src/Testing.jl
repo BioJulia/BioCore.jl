@@ -79,7 +79,7 @@ bio_fmt_specimens("FASTA", (x) -> x["valid"] == true)
 function bio_fmt_specimens(format::String, fn::Function, checkout = "master", auto_checkout = true, fresh = false)
     get_bio_fmt_specimens(checkout, auto_checkout, fresh)
     specimens = YAML.load_file(joinpath(FMT_SPECIMEN_PATH, format, "index.yml"))
-    filtered_specimens = Vector{String}(length(specimens))
+    filtered_specimens = Vector{String}(undef, length(specimens))
     fsi = 0
     for specimen in specimens
         if fn(specimen)
@@ -93,7 +93,7 @@ end
 
 function random_array(n::Integer, elements, probs)
     cumprobs = cumsum(probs)
-    x = Vector{eltype(elements)}(n)
+    x = Vector{eltype(elements)}(undef, n)
     for i in 1:n
         x[i] = elements[searchsorted(cumprobs, rand()).start]
     end
@@ -102,7 +102,7 @@ end
 
 function random_seq(n::Integer, nts, probs)
     cumprobs = cumsum(probs)
-    x = Vector{Char}(n)
+    x = Vector{Char}(undef, n)
     for i in 1:n
         x[i] = nts[searchsorted(cumprobs, rand()).start]
     end
