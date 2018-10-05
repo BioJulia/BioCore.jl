@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.3]
+### Changes
+- Fix the bio_fmt_specimens method to work with julia 1.0 syntax.
+
+## [2.0.2]
+### Changes
+- Move some methods out of the largely unused Ragel module.
+
+## [2.0.1]
+### Changes
+- Comment out some lines of Ragel.jl, with a view to completely removing them later.
+
 ## [2.0.0] - 2018-08-11
 ### Changed
 - Compatibility for julia versions 0.7 and 1.0.
@@ -52,7 +64,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Basic project setup.
 
-[Unreleased]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.3...HEAD
+[2.0.3]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.2...v2.0.3
+[2.0.2]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/BioJulia/BioCore.jl/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/BioJulia/BioCore.jl/compare/v1.4.0...v2.0.0
 [1.4.0]: https://github.com/BioJulia/BioCore.jl/compare/v1.2.1...v1.4.0
 [1.3.0]: https://github.com/BioJulia/BioCore.jl/compare/v1.2.1...v1.3.0
