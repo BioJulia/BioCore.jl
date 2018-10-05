@@ -84,7 +84,7 @@ function bio_fmt_specimens(format::String, fn::Function, checkout = "master", au
     for specimen in specimens
         if fn(specimen)
             fsi += 1
-            filtered_specimens[fsi] = joinpath(FMT_SPECIMEN_PATH, specimen["filename"])
+            filtered_specimens[fsi] = joinpath(FMT_SPECIMEN_PATH, format, specimen["filename"])
         end
     end
     resize!(filtered_specimens, fsi)
