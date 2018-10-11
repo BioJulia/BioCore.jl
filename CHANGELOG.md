@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.5]
+### Changes
+- Fix the random_seq method. It used to use a convert method to convert char arrays to strings.
+  Now it uses a String constructor.
+
 ## [2.0.4]
 ### Changes
 - Fix another bug in the bio_fmt_specimens method.
