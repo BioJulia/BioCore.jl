@@ -106,7 +106,7 @@ function random_seq(n::Integer, nts, probs)
     for i in 1:n
         x[i] = nts[searchsorted(cumprobs, rand()).start]
     end
-    return convert(String, x)
+    return String(x)
 end
 
 function random_dna(n, probs=[0.24, 0.24, 0.24, 0.24, 0.04])
