@@ -12,6 +12,6 @@ matrix:
 notifications:
   email: false
 after_success:
-  - julia -e 'using Pkg; Pkg.add("Documenter"); Pkg.add("Coverage")'
+  - julia -e 'using Pkg; ps=Pkg.PackageSpec(name="Documenter", version="0.19"); Pkg.add(ps); Pkg.pin(ps); Pkg.add("Coverage")'
   - julia -e 'using Coverage; import BioCore; cd(dirname(dirname(pathof(BioCore)))); Codecov.submit(process_folder())'
   - julia -e 'import BioCore; cd(dirname(dirname(pathof(BioCore)))); include(joinpath("docs", "make.jl"))'
