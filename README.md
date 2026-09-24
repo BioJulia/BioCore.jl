@@ -1,5 +1,9 @@
 # BioCore.jl
 
+[![BioJulia - Deprecated](https://raw.githubusercontent.com/BioJulia/biojulia.github.io/main/badges/biojulia-deprecated.svg)](https://biojulia.dev/) 
+
+---
+
 [![](https://img.shields.io/github/release/BioJulia/BioCore.jl.svg?style=flat-square)](https://github.com/BioJulia/BioCore.jl/releases/latest) 
 [![](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](https://github.com/BioJulia/BioCore.jl/blob/master/LICENSE) 
 [![](https://img.shields.io/badge/docs-stable-blue.svg?style=flat-square)](https://biojulia.github.io/BioCore.jl/stable) 
